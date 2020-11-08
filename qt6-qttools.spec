@@ -23,6 +23,7 @@ BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
 BuildRequires:	%{_lib}Qt%{major}Qml-devel
 BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
+BuildRequires:	%{_lib}Qt%{major}QmlModels-devel
 BuildRequires:	%{_lib}Qt%{major}QmlQuick-devel
 BuildRequires:	%{_lib}Qt%{major}QmlQuickWidgets-devel
 BuildRequires:	%{_lib}Qt%{major}Xml-devel
