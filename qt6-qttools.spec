@@ -22,6 +22,8 @@ BuildRequires:	%{_lib}Qt%{major}Core-devel
 BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
 BuildRequires:	%{_lib}Qt%{major}Qml-devel
+BuildRequires:	%{_lib}Qt%{major}QmlQuick-devel
+BuildRequires:	%{_lib}Qt%{major}QmlQuickWidgets-devel
 BuildRequires:	%{_lib}Qt%{major}Xml-devel
 BuildRequires:	%{_lib}Qt%{major}Widgets-devel
 BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
@@ -32,6 +34,8 @@ BuildRequires:	%{_lib}Qt%{major}OpenGLWidgets-devel
 BuildRequires:	%{_lib}Qt%{major}DBus-devel
 BuildRequires:	qt%{major}-cmake
 BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(vulkan)
 BuildRequires:	cmake(LLVM)
 BuildRequires:	cmake(Clang)
 # Not really required, but referenced by LLVMExports.cmake
