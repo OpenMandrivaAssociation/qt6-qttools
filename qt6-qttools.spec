@@ -19,12 +19,25 @@ Summary:	Qt %{major} Tools
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	%{_lib}Qt%{major}Core-devel
+BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
 BuildRequires:	%{_lib}Qt%{major}Qml-devel
+BuildRequires:	%{_lib}Qt%{major}Xml-devel
+BuildRequires:	%{_lib}Qt%{major}Widgets-devel
+BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
+BuildRequires:	%{_lib}Qt%{major}Sql-devel
+BuildRequires:	%{_lib}Qt%{major}PrintSupport-devel
+BuildRequires:	%{_lib}Qt%{major}OpenGL-devel
+BuildRequires:	%{_lib}Qt%{major}OpenGLWidgets-devel
+BuildRequires:	%{_lib}Qt%{major}DBus-devel
 BuildRequires:	qt%{major}-cmake
-License:	LGPLv3/GPLv3/GPLv2
+BuildRequires:	pkgconfig(gl)
 BuildRequires:	cmake(LLVM)
 BuildRequires:	cmake(Clang)
+# Not really required, but referenced by LLVMExports.cmake
+# (and then required because of the integrity check)
+BuildRequires:	%{_lib}gpuruntime
+License:	LGPLv3/GPLv3/GPLv2
 
 %description
 Qt %{major} tools
