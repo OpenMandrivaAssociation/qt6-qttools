@@ -1,4 +1,4 @@
-%define beta beta3
+%define beta beta5
 #define snapshot 20200627
 %define major 6
 
@@ -112,7 +112,6 @@ done
 %{_libdir}/libQt%{major}Help.so.%{major}*
 %{_libdir}/libQt%{major}UiTools.so
 %{_libdir}/libQt%{major}UiTools.so.%{major}*
-%{_qtdir}/bin/assistant
 %{_qtdir}/bin/designer
 %{_qtdir}/bin/lconvert
 %{_qtdir}/bin/linguist
@@ -122,7 +121,6 @@ done
 %{_qtdir}/bin/lupdate
 %{_qtdir}/bin/lupdate-pro
 %{_qtdir}/bin/pixeltool
-%{_qtdir}/bin/qcollectiongenerator
 %{_qtdir}/bin/qdbus
 %{_qtdir}/bin/qdbusviewer
 %{_qtdir}/bin/qdistancefieldgenerator
@@ -132,7 +130,6 @@ done
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtpaths
 %{_qtdir}/bin/qtplugininfo
-%{_qtdir}/examples/assistant
 %{_qtdir}/examples/designer
 %{_qtdir}/examples/help
 %{_qtdir}/examples/linguist

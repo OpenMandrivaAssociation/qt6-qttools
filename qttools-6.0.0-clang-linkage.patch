@@ -1,13 +1,12 @@
-diff -up qttools-everywhere-src-6.0.0-beta3/cmake/FindWrapLibClang.cmake.omv~ qttools-everywhere-src-6.0.0-beta3/cmake/FindWrapLibClang.cmake
---- qttools-everywhere-src-6.0.0-beta3/cmake/FindWrapLibClang.cmake.omv~	2020-11-08 01:57:14.284374236 +0100
-+++ qttools-everywhere-src-6.0.0-beta3/cmake/FindWrapLibClang.cmake	2020-11-08 02:26:27.181531640 +0100
-@@ -48,7 +48,7 @@ if(TARGET libclang AND ((TARGET clang-cp
-       qt_internal_disable_find_package_global_promotion(Threads::Threads)
-       # lupdate must also link to LLVM when using clang-cpp
-       set(__qt_clang_genex_condition "$<AND:$<TARGET_EXISTS:clang-cpp>,$<TARGET_EXISTS:LLVM>>")
--      set(__qt_clang_genex "$<IF:${__qt_clang_genex_condition},clang-cpp;LLVM,clangHandleCXX>")
-+      set(__qt_clang_genex "$<IF:${__qt_clang_genex_condition},clang-cpp;LLVM,clangHandleCXX> -lclangAST -lclangBasic -lclangFrontend -lclangLex -lclangSerialization -lclangTooling -lLLVMSupport")
-       target_link_libraries(WrapLibClang::WrapLibClang
-                             INTERFACE libclang
-                                       ${__qt_clang_genex}
-diff -up qttools-everywhere-src-6.0.0-beta3/src/linguist/lupdate/CMakeLists.txt.omv~ qttools-everywhere-src-6.0.0-beta3/src/linguist/lupdate/CMakeLists.txt
+diff -up qttools-everywhere-src-6.0.0-beta4/cmake/FindWrapLibClang.cmake.1~ qttools-everywhere-src-6.0.0-beta4/cmake/FindWrapLibClang.cmake
+--- qttools-everywhere-src-6.0.0-beta4/cmake/FindWrapLibClang.cmake.1~	2020-11-15 23:01:07.789414428 +0100
++++ qttools-everywhere-src-6.0.0-beta4/cmake/FindWrapLibClang.cmake	2020-11-15 23:01:52.387151627 +0100
+@@ -58,7 +58,7 @@ if(TARGET libclang AND ((TARGET clang-cp
+         qt_internal_disable_find_package_global_promotion(Threads::Threads)
+         # lupdate must also link to LLVM when using clang-cpp
+         set(__qt_clang_genex_condition "$<AND:$<TARGET_EXISTS:clang-cpp>,$<TARGET_EXISTS:LLVM>>")
+-        set(__qt_clang_genex "$<IF:${__qt_clang_genex_condition},clang-cpp;LLVM,clangHandleCXX>")
++        set(__qt_clang_genex "$<IF:${__qt_clang_genex_condition},clang-cpp;LLVM,clangHandleCXX> -lclangAST -lclangBasic -lclangFrontend -lclangLex -lclangSerialization -lclangTooling -lLLVMSupport")
+         target_link_libraries(WrapLibClang::WrapLibClang
+             INTERFACE libclang
+             ${__qt_clang_genex}
