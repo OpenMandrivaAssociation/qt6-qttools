@@ -5,7 +5,7 @@
 %define _qtdir %{_libdir}/qt%{major}
 
 Name:		qt6-qttools
-Version:	6.0.0
+Version:	6.0.1
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -120,6 +120,7 @@ done
 %{_qtdir}/examples/linguist
 %{_qtdir}/examples/plugins/designer
 %{_qtdir}/examples/uitools
+%{_qtdir}/phrasebooks
 %{_qtdir}/include/QtDesigner
 %{_qtdir}/include/QtDesignerComponents
 %{_qtdir}/include/QtHelp
