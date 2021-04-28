@@ -1,11 +1,11 @@
-#define beta rc2
+%define beta rc
 #define snapshot 20200627
 %define major 6
 
 %define _qtdir %{_libdir}/qt%{major}
 
 Name:		qt6-qttools
-Version:	6.0.1
+Version:	6.1.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -98,11 +98,8 @@ done
 %{_qtdir}/bin/designer
 %{_qtdir}/bin/lconvert
 %{_qtdir}/bin/linguist
-%{_qtdir}/bin/lprodump
 %{_qtdir}/bin/lrelease
-%{_qtdir}/bin/lrelease-pro
 %{_qtdir}/bin/lupdate
-%{_qtdir}/bin/lupdate-pro
 %{_qtdir}/bin/pixeltool
 %{_qtdir}/bin/qdbus
 %{_qtdir}/bin/qdbusviewer
@@ -111,9 +108,13 @@ done
 %{_qtdir}/bin/qhelpgenerator
 %{_qtdir}/bin/qtattributionsscanner
 %{_qtdir}/bin/qtdiag
+%{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtpaths
 %{_qtdir}/bin/qtplugininfo
 %{_qtdir}/bin/assistant
+%{_qtdir}/libexec/lprodump
+%{_qtdir}/libexec/lrelease-pro
+%{_qtdir}/libexec/lupdate-pro
 %{_qtdir}/examples/assistant
 %{_qtdir}/examples/designer
 %{_qtdir}/examples/help
