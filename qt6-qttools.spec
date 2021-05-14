@@ -6,7 +6,7 @@
 
 Name:		qt6-qttools
 Version:	6.1.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -72,9 +72,7 @@ mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libdir}/cmake
 for i in %{buildroot}%{_qtdir}/lib/*.so*; do
 	ln -s qt%{major}/lib/$(basename ${i}) %{buildroot}%{_libdir}/
 done
-for i in %{buildroot}%{_qtdir}/lib/cmake/*; do
-	ln -s ../qt%{major}/lib/cmake/$(basename ${i}) %{buildroot}%{_libdir}/cmake/
-done
+mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 
 %files
 %{_libdir}/cmake/Qt%{major}BuildInternals
@@ -128,16 +126,6 @@ done
 %{_qtdir}/include/QtTools
 %{_qtdir}/include/QtUiPlugin
 %{_qtdir}/include/QtUiTools
-%{_qtdir}/lib/cmake/Qt%{major}BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
-%{_qtdir}/lib/cmake/Qt%{major}Designer
-%{_qtdir}/lib/cmake/Qt%{major}DesignerComponents
-%{_qtdir}/lib/cmake/Qt%{major}Help
-%{_qtdir}/lib/cmake/Qt%{major}Linguist
-%{_qtdir}/lib/cmake/Qt%{major}LinguistTools
-%{_qtdir}/lib/cmake/Qt%{major}Tools
-%{_qtdir}/lib/cmake/Qt%{major}ToolsTools
-%{_qtdir}/lib/cmake/Qt%{major}UiPlugin
-%{_qtdir}/lib/cmake/Qt%{major}UiTools
 %{_qtdir}/lib/libQt%{major}Designer.prl
 %{_qtdir}/lib/libQt%{major}Designer.so
 %{_qtdir}/lib/libQt%{major}Designer.so.%{major}*
