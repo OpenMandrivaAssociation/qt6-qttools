@@ -5,8 +5,8 @@
 %define _qtdir %{_libdir}/qt%{major}
 
 Name:		qt6-qttools
-Version:	6.1.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Version:	6.2.1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -21,14 +21,8 @@ BuildRequires:	ninja
 BuildRequires:	%{_lib}Qt%{major}Core-devel
 BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
-BuildRequires:	%{_lib}Qt%{major}Qml-devel
-BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
-BuildRequires:	%{_lib}Qt%{major}QmlModels-devel
-BuildRequires:	%{_lib}Qt%{major}QmlQuick-devel
-BuildRequires:	%{_lib}Qt%{major}QmlQuickWidgets-devel
 BuildRequires:	%{_lib}Qt%{major}Xml-devel
 BuildRequires:	%{_lib}Qt%{major}Widgets-devel
-BuildRequires:	%{_lib}Qt%{major}QmlDevTools-devel
 BuildRequires:	%{_lib}Qt%{major}Sql-devel
 BuildRequires:	%{_lib}Qt%{major}PrintSupport-devel
 BuildRequires:	%{_lib}Qt%{major}OpenGL-devel
@@ -36,6 +30,7 @@ BuildRequires:	%{_lib}Qt%{major}OpenGLWidgets-devel
 BuildRequires:	%{_lib}Qt%{major}DBus-devel
 BuildRequires:	qt%{major}-cmake
 BuildRequires:	qt%{major}-qtdeclarative
+BuildRequires:	qt%{major}-qtdeclarative-devel
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(vulkan)
@@ -77,7 +72,6 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %files
 %{_libdir}/cmake/Qt%{major}BuildInternals
 %{_libdir}/cmake/Qt%{major}Designer
-%{_libdir}/cmake/Qt%{major}DesignerComponents
 %{_libdir}/cmake/Qt%{major}Help
 %{_libdir}/cmake/Qt%{major}Linguist
 %{_libdir}/cmake/Qt%{major}LinguistTools
@@ -104,10 +98,8 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/bin/qdistancefieldgenerator
 %{_qtdir}/bin/qdoc
 %{_qtdir}/bin/qhelpgenerator
-%{_qtdir}/bin/qtattributionsscanner
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
-%{_qtdir}/bin/qtpaths
 %{_qtdir}/bin/qtplugininfo
 %{_qtdir}/bin/assistant
 %{_qtdir}/libexec/lprodump
@@ -150,10 +142,18 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/mkspecs/modules/qt_lib_uitools.pri
 %{_qtdir}/mkspecs/modules/qt_lib_uitools_private.pri
 %{_qtdir}/modules/Designer.json
-%{_qtdir}/modules/DesignerComponents.json
 %{_qtdir}/modules/Help.json
 %{_qtdir}/modules/Linguist.json
 %{_qtdir}/modules/Tools.json
 %{_qtdir}/modules/UiPlugin.json
 %{_qtdir}/modules/UiTools.json
 %{_qtdir}/plugins/designer/libqquickwidget.so
+%{_libdir}/cmake/Qt6/FindWrapLibClang.cmake
+%{_libdir}/cmake/Qt6DesignerComponentsPrivate
+%{_qtdir}/lib/metatypes/qt6designer_relwithdebinfo_metatypes.json
+%{_qtdir}/lib/metatypes/qt6designercomponentsprivate_relwithdebinfo_metatypes.json
+%{_qtdir}/lib/metatypes/qt6help_relwithdebinfo_metatypes.json
+%{_qtdir}/lib/metatypes/qt6uitools_relwithdebinfo_metatypes.json
+%{_qtdir}/libexec/qtattributionsscanner
+%{_qtdir}/modules/DesignerComponentsPrivate.json
+
