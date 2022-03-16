@@ -18,6 +18,7 @@ Group:		System/Libraries
 Summary:	Qt %{major} Tools
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	llvm-bolt
 BuildRequires:	%{_lib}Qt%{major}Core-devel
 BuildRequires:	%{_lib}Qt%{major}Gui-devel
 BuildRequires:	%{_lib}Qt%{major}Network-devel
