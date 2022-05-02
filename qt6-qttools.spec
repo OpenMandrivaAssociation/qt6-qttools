@@ -5,8 +5,8 @@
 %define _qtdir %{_libdir}/qt%{major}
 
 Name:		qt6-qttools
-Version:	6.2.3
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Version:	6.3.0
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -91,6 +91,7 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_libdir}/libQt%{major}Help.so.%{major}*
 %{_libdir}/libQt%{major}UiTools.so
 %{_libdir}/libQt%{major}UiTools.so.%{major}*
+%{_libdir}/qt6/libexec/qhelpgenerator
 %{_qtdir}/bin/designer
 %{_qtdir}/bin/lconvert
 %{_qtdir}/bin/linguist
@@ -101,7 +102,7 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/bin/qdbusviewer
 %{_qtdir}/bin/qdistancefieldgenerator
 %{_qtdir}/bin/qdoc
-%{_qtdir}/bin/qhelpgenerator
+#{_qtdir}/bin/qhelpgenerator
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
@@ -113,7 +114,7 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/examples/designer
 %{_qtdir}/examples/help
 %{_qtdir}/examples/linguist
-%{_qtdir}/examples/plugins/designer
+#{_qtdir}/examples/plugins/designer
 %{_qtdir}/examples/uitools
 %{_qtdir}/phrasebooks
 %{_qtdir}/include/QtDesigner
