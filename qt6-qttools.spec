@@ -101,7 +101,7 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/bin/qdbusviewer
 %{_qtdir}/bin/qdistancefieldgenerator
 %{_qtdir}/bin/qdoc
-%{_qtdir}/bin/qhelpgenerator
+#{_qtdir}/bin/qhelpgenerator
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
@@ -113,7 +113,7 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_qtdir}/examples/designer
 %{_qtdir}/examples/help
 %{_qtdir}/examples/linguist
-%{_qtdir}/examples/plugins/designer
+#{_qtdir}/examples/plugins/designer
 %{_qtdir}/examples/uitools
 %{_qtdir}/phrasebooks
 %{_qtdir}/include/QtDesigner
