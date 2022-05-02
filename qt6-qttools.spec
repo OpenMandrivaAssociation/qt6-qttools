@@ -91,6 +91,7 @@ mv %{buildroot}%{_qtdir}/lib/cmake %{buildroot}%{_libdir}/
 %{_libdir}/libQt%{major}Help.so.%{major}*
 %{_libdir}/libQt%{major}UiTools.so
 %{_libdir}/libQt%{major}UiTools.so.%{major}*
+%{_libdir}/qt6/libexec/qhelpgenerator
 %{_qtdir}/bin/designer
 %{_qtdir}/bin/lconvert
 %{_qtdir}/bin/linguist
