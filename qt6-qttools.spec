@@ -1,6 +1,6 @@
 Name:		qt6-qttools
-Version:	6.3.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Version:	6.3.1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -144,7 +144,12 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 # lrelease and lupdate are virtually never used
 # outside of a -devel context, it is the right
 # thing to do
+%{_qtdir}/modules/Linguist.json
 %{_qtdir}/lib/cmake/Qt6LinguistTools
+%{_qtdir}/lib/pkgconfig/Qt6Linguist.pc
+%{_qtdir}/mkspecs/modules/qt_lib_linguist.pri
+%{_qtdir}/mkspecs/modules/qt_lib_linguist_private.pri
+%{_qtdir}/lib/cmake/Qt6Linguist
 
 %files dbus
 %{_qtdir}/bin/qdbus
@@ -173,19 +178,16 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/include/QtUiPlugin
 %{_qtdir}/lib/cmake/Qt6/FindWrapLibClang.cmake
 %{_qtdir}/lib/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
-%{_qtdir}/lib/cmake/Qt6Linguist
 %{_qtdir}/lib/cmake/Qt6Tools
 %{_qtdir}/lib/cmake/Qt6ToolsTools
 %{_qtdir}/lib/cmake/Qt6UiPlugin
-%{_qtdir}/mkspecs/modules/qt_lib_linguist.pri
-%{_qtdir}/mkspecs/modules/qt_lib_linguist_private.pri
 %{_qtdir}/mkspecs/modules/qt_lib_tools_private.pri
 %{_qtdir}/mkspecs/modules/qt_lib_uiplugin.pri
 %{_qtdir}/libexec/qhelpgenerator
 %{_qtdir}/libexec/qtattributionsscanner
-%{_qtdir}/modules/Linguist.json
 %{_qtdir}/modules/Tools.json
 %{_qtdir}/modules/UiPlugin.json
+%{_qtdir}/lib/pkgconfig/Qt6UiPlugin.pc
 %dir %{_qtdir}/phrasebooks
 %lang(da) %{_qtdir}/phrasebooks/danish.qph
 %lang(nl) %{_qtdir}/phrasebooks/dutch.qph
