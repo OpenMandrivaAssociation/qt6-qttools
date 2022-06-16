@@ -33,14 +33,14 @@ BuildRequires:	pkgconfig(vulkan)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	spirv-llvm-translator
 BuildRequires:	cmake(LLVM)
-# FIXME This should be a dependency of cmake(LLVM)
-# the file is needed only because it's referenced
-# by LLVMExports.cmake
+# FIXME All of the following should be a dependencies
+# of cmake(LLVM). The files are needed only because
+# they're referenced by LLVMExports.cmake
+# checking for a "broken" install
 BuildRequires:	llvm-static-devel
 BuildRequires:	%{_lib}mlir
+BuildRequires:	cmake(Polly)
 BuildRequires:	cmake(Clang)
-# Not really required, but referenced by LLVMExports.cmake
-# (and then required because of the integrity check)
 BuildRequires:	%{_lib}gpuruntime
 License:	LGPLv3/GPLv3/GPLv2
 
