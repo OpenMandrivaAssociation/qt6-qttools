@@ -36,8 +36,7 @@ BuildRequires:	cmake(LLVM)
 # FIXME This should be a dependency of cmake(LLVM)
 # the file is needed only because it's referenced
 # by LLVMExports.cmake
-BuildRequires:	%{_lib}LLVMDemangle-static-devel
-BuildRequires:	%{_lib}LLVMSupport-static-devel
+BuildRequires:	llvm-static-devel
 BuildRequires:	cmake(Clang)
 # Not really required, but referenced by LLVMExports.cmake
 # (and then required because of the integrity check)
