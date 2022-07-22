@@ -27,6 +27,8 @@ BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6DBus)
 BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	cmake(Qt6QmlTools)
+BuildRequires:	cmake(Qt6Quick)
+BuildRequires:	cmake(Qt6QuickWidgets)
 BuildRequires:	qt6-qtdeclarative
 BuildRequires:	qt6-cmake
 BuildRequires:	pkgconfig(gl)
