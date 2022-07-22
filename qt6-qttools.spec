@@ -1,5 +1,7 @@
+%define beta beta2
+
 Name:		qt6-qttools
-Version:	6.3.1
+Version:	6.4.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -75,6 +77,29 @@ Group:		Development/Tools
 %description designer
 Qt Designer - a graphical UI builder
 
+%package distancefieldgenerator
+Summary:	Qt Distance Field Generator - font cache builder
+Group:		Development/Tools
+Url:		https://doc.qt.io/qt-6/qtdistancefieldgenerator-index.html
+
+%description distancefieldgenerator
+If the user interface of an application has a lot of text, it may cause a
+small, but noticeable, performance impact the first time it is displayed to
+the user. This is especially true if the text is rendered in multiple
+different fonts or use a large amount of distinct characters (common for
+instance in writing systems such as Hanzi, written Chinese).
+
+The reason is that in order to render the text efficiently later, Qt will
+spend some time creating graphical assets for each of the glyphs that will
+later be reused. This happens the first time a glyph is displayed in the
+scene.
+
+For advanced users who want to optimize startup performance, it is possible
+to pregenerate this font cache, as long as Text.QtRendering is the rendering
+type in use. The Qt Distance Field Generator tool can be used to pregenerate
+the cache, either for all glyphs in the fonts, or just a selection that are
+known to be displayed during a critical phase.
+
 %package linguist
 Summary:	Qt Linguist - a frontend for translating software
 Group:		Development/Tools
@@ -135,6 +160,7 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 
 %files designer
 %{_qtdir}/bin/designer
+%{_qtdir}/plugins/designer
 
 %files linguist
 %{_qtdir}/bin/linguist
@@ -172,6 +198,9 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
+
+%files distancefieldgenerator
+%{_qtdir}/bin/qdistancefieldgenerator
 
 %files examples
 %{_qtdir}/examples/assistant
