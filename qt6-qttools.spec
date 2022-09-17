@@ -1,4 +1,4 @@
-%define beta beta4
+%define beta rc
 
 Name:		qt6-qttools
 Version:	6.4.0
