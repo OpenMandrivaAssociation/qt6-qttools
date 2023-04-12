@@ -3,11 +3,11 @@
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
 # and pieces.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:		qt6-qttools
 Version:	6.5.0
-Release:	%{?beta:0.%{beta}.1}%{?snapshot:1.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
