@@ -1,4 +1,9 @@
 #define beta rc
+# QtDeclarative has a BR on linguist tools, but
+# QtTools has a BR on QtDeclarative...
+# Allow a bootstrap build without Declarative bits
+# and pieces.
+%bcond_without bootstrap
 
 Name:		qt6-qttools
 Version:	6.5.0
@@ -27,12 +32,14 @@ BuildRequires:	cmake(Qt6PrintSupport)
 BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6DBus)
+%if ! %{with bootstrap}
 BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	cmake(Qt6QmlModels)
 BuildRequires:	cmake(Qt6QmlTools)
 BuildRequires:	cmake(Qt6Quick)
 BuildRequires:	cmake(Qt6QuickWidgets)
 BuildRequires:	qt6-qtdeclarative
+%endif
 BuildRequires:	qt6-cmake
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(xkbcommon)
@@ -40,15 +47,6 @@ BuildRequires:	pkgconfig(vulkan)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	spirv-llvm-translator
 BuildRequires:	cmake(LLVM)
-# FIXME All of the following should be a dependencies
-# of cmake(LLVM). The files are needed only because
-# they're referenced by LLVMExports.cmake
-# checking for a "broken" install
-BuildRequires:	llvm-static-devel
-BuildRequires:	%{_lib}mlir
-BuildRequires:	cmake(Polly)
-BuildRequires:	cmake(Clang)
-BuildRequires:	%{_lib}gpuruntime
 License:	LGPLv3/GPLv3/GPLv2
 
 %description
@@ -205,8 +203,10 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
 
+%if ! %{with bootstrap}
 %files distancefieldgenerator
 %{_qtdir}/bin/qdistancefieldgenerator
+%endif
 
 %files examples
 %{_qtdir}/examples/assistant
