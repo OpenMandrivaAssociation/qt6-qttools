@@ -47,6 +47,7 @@ BuildRequires:	pkgconfig(vulkan)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	spirv-llvm-translator
 BuildRequires:	cmake(LLVM)
+BuildRequires:	cmake(Clang)
 License:	LGPLv3/GPLv3/GPLv2
 
 %description
