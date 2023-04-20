@@ -7,7 +7,7 @@
 
 Name:		qt6-qttools
 Version:	6.5.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}3
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -132,6 +132,9 @@ Summary:	Development files for working with Qt Tools
 Group:		Development/KDE and Qt
 Requires:	%{name}-doc = %{EVRD}
 Requires:	%{name}-linguist-tools = %{EVRD}
+# qhelpgenerator's qch files are, in fact, sqlite
+# databases - written to by QSql
+Requires:	qt6-qtbase-sql-sqlite
 
 %description devel
 Development files for working with Qt Tools
