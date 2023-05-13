@@ -7,7 +7,7 @@
 
 Name:		qt6-qttools
 Version:	6.5.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}3
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}4
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -163,6 +163,7 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 
 %install
 %ninja_install -C build
+%qt6_postinstall
 
 %files assistant
 %{_qtdir}/bin/assistant
@@ -188,7 +189,7 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 # thing to do
 %{_qtdir}/modules/Linguist.json
 %{_qtdir}/lib/cmake/Qt6LinguistTools
-%{_qtdir}/lib/pkgconfig/Qt6Linguist.pc
+%{_libdir}/pkgconfig/Qt6Linguist.pc
 %{_qtdir}/mkspecs/modules/qt_lib_linguist.pri
 %{_qtdir}/mkspecs/modules/qt_lib_linguist_private.pri
 %{_qtdir}/lib/cmake/Qt6Linguist
@@ -234,7 +235,7 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/libexec/qtattributionsscanner
 %{_qtdir}/modules/Tools.json
 %{_qtdir}/modules/UiPlugin.json
-%{_qtdir}/lib/pkgconfig/Qt6UiPlugin.pc
+%{_libdir}/pkgconfig/Qt6UiPlugin.pc
 %dir %{_qtdir}/phrasebooks
 %lang(da) %{_qtdir}/phrasebooks/danish.qph
 %lang(nl) %{_qtdir}/phrasebooks/dutch.qph
