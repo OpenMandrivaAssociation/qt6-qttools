@@ -1,4 +1,4 @@
-#define beta rc
+%define beta beta1
 # QtDeclarative has a BR on linguist tools, but
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
@@ -6,7 +6,7 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.5.1
+Version:	6.6.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -236,6 +236,22 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/modules/Tools.json
 %{_qtdir}/modules/UiPlugin.json
 %{_libdir}/pkgconfig/Qt6UiPlugin.pc
+%{_libdir}/pkgconfig/Qt6QDocCatchConversionsPrivate.pc
+%{_libdir}/pkgconfig/Qt6QDocCatchGeneratorsPrivate.pc
+%{_qtdir}/include/QtQDocCatch
+%{_qtdir}/include/QtQDocCatchConversionsPrivate
+%{_qtdir}/include/QtQDocCatchGeneratorsPrivate
+%{_qtdir}/lib/cmake/Qt6QDocCatchConversionsPrivate
+%{_qtdir}/lib/cmake/Qt6QDocCatchGeneratorsPrivate
+%{_qtdir}/lib/cmake/Qt6QDocCatchPrivate
+%{_qtdir}/mkspecs/modules/qt_lib_qdoccatch_private.pri
+%{_qtdir}/mkspecs/modules/qt_lib_qdoccatchconversionsprivate.pri
+%{_qtdir}/mkspecs/modules/qt_lib_qdoccatchconversionsprivate_private.pri
+%{_qtdir}/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate.pri
+%{_qtdir}/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate_private.pri
+%{_qtdir}/modules/QDocCatchConversionsPrivate.json
+%{_qtdir}/modules/QDocCatchGeneratorsPrivate.json
+%{_qtdir}/modules/QDocCatchPrivate.json
 %dir %{_qtdir}/phrasebooks
 %lang(da) %{_qtdir}/phrasebooks/danish.qph
 %lang(nl) %{_qtdir}/phrasebooks/dutch.qph
