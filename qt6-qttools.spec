@@ -6,7 +6,7 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.6.0
+Version:	6.6.1
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -15,7 +15,6 @@ Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
 Source:		http://download.qt-project.org/%{?beta:development}%{!?beta:official}_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}%{?beta:-%{beta}}/submodules/qttools-everywhere-src-%{version}%{?beta:-%{beta}}.tar.xz
 %endif
 Patch0:		qttools-6.0.0-clang-linkage.patch
-Patch1:		qttools-6.6.0-beta4-compile.patch
 Group:		System/Libraries
 Summary:	Qt %{qtmajor} Tools
 BuildRequires:	cmake
