@@ -32,6 +32,7 @@ BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6DBus)
 BuildRequires:	pkgconfig(libzstd)
+BuildRequires:	%mklibname zstd -s -d
 %if ! %{with bootstrap}
 BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	cmake(Qt6QmlModels)
