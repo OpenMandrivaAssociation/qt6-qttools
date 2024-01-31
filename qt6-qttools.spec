@@ -1,4 +1,4 @@
-%define beta beta1
+%define beta beta2
 # QtDeclarative has a BR on linguist tools, but
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
@@ -7,7 +7,7 @@
 
 Name:		qt6-qttools
 Version:	6.7.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
