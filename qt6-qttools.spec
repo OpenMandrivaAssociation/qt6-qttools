@@ -1,4 +1,4 @@
-%define beta rc2
+#define beta rc2
 # QtDeclarative has a BR on linguist tools, but
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
@@ -15,6 +15,7 @@ Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
 Source:		http://download.qt-project.org/%{?beta:development}%{!?beta:official}_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}%{?beta:-%{beta}}/submodules/qttools-everywhere-src-%{version}%{?beta:-%{beta}}.tar.xz
 %endif
 Patch0:		qttools-6.0.0-clang-linkage.patch
+Patch1:		qttools-6.7.0-zstd-detection.patch
 Group:		System/Libraries
 Summary:	Qt %{qtmajor} Tools
 BuildRequires:	cmake
