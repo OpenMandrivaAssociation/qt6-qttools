@@ -1,0 +1,40 @@
+diff -up qttools-everywhere-src-6.7.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~ qttools-everywhere-src-6.7.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
+--- qttools-everywhere-src-6.7.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~	2024-08-09 23:26:21.315917953 +0200
++++ qttools-everywhere-src-6.7.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp	2024-08-09 23:52:28.035686856 +0200
+@@ -168,7 +168,11 @@ static std::string get_expression_as_str
+  */
+ static std::string get_default_value_initializer_as_string(const clang::TemplateTypeParmDecl* parameter) {
+     return (parameter && parameter->hasDefaultArgument()) ?
++#if LIBCLANG_VERSION_MAJOR >= 19
++                get_fully_qualified_type_name(parameter->getDefaultArgument().getArgument().getAsType(), parameter->getASTContext()) :
++#else
+                 get_fully_qualified_type_name(parameter->getDefaultArgument(), parameter->getASTContext()) :
++#endif
+                 "";
+ 
+ }
+@@ -184,8 +188,11 @@ static std::string get_default_value_ini
+  */
+ static std::string get_default_value_initializer_as_string(const clang::NonTypeTemplateParmDecl* parameter) {
+     return (parameter && parameter->hasDefaultArgument()) ?
++#if LIBCLANG_VERSION_MAJOR >= 19
++        get_expression_as_string(parameter->getDefaultArgument().getSourceDeclExpression(), parameter->getASTContext()) : "";
++#else
+         get_expression_as_string(parameter->getDefaultArgument(), parameter->getASTContext()) : "";
+-
++#endif
+ }
+ 
+ /*
+@@ -204,7 +211,11 @@ static std::string get_default_value_ini
+         const clang::TemplateName template_name = parameter->getDefaultArgument().getArgument().getAsTemplate();
+ 
+         llvm::raw_string_ostream ss{default_value};
++#if LIBCLANG_VERSION_MAJOR >= 19
++        template_name.print(ss, parameter->getASTContext().getPrintingPolicy(), clang::TemplateName::Qualified::AsWritten);
++#else
+         template_name.print(ss, parameter->getASTContext().getPrintingPolicy(), clang::TemplateName::Qualified::Fully);
++#endif
+     }
+ 
+     return default_value;
