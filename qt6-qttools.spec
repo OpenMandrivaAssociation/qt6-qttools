@@ -24,7 +24,6 @@ BuildRequires:	llvm-bolt
 BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Concurrent)
 BuildRequires:	cmake(Qt6Gui)
-BuildRequires:	cmake(Qt6Help)
 BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:	cmake(Qt6Network)
 BuildRequires:	cmake(Qt6Xml)
@@ -34,6 +33,10 @@ BuildRequires:	cmake(Qt6PrintSupport)
 BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6DBus)
+# For help plugin
+BuildRequires:	cmake(Qt6QmlLSPrivate)
+BuildRequires:	cmake(Qt6Help)
+
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	%mklibname zstd -s -d
 %if ! %{with bootstrap}
