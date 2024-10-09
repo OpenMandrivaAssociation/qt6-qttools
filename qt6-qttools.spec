@@ -34,6 +34,7 @@ BuildRequires:	cmake(Qt6OpenGL)
 BuildRequires:	cmake(Qt6OpenGLWidgets)
 BuildRequires:	cmake(Qt6DBus)
 # For help plugin
+BuildRequires:	cmake(Qt6LanguageServerPrivate)
 BuildRequires:	cmake(Qt6QmlLSPrivate)
 BuildRequires:	cmake(Qt6Help)
 
