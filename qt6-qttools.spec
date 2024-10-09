@@ -40,6 +40,7 @@ BuildRequires:	cmake(Qt6JsonRpcPrivate)
 BuildRequires:	cmake(Qt6QmlDomPrivate)
 BuildRequires:	cmake(Qt6QmlToolingSettingsPrivate)
 BuildRequires:	cmake(Qt6QmlCore)
+BuildRequires:	cmake(Qt6QmlCompiler)
 BuildRequires:	cmake(Qt6Help)
 
 BuildRequires:	pkgconfig(libzstd)
