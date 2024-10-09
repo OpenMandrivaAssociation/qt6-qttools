@@ -24,6 +24,7 @@ BuildRequires:	llvm-bolt
 BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Concurrent)
 BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(Qt6Help)
 BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:	cmake(Qt6Network)
 BuildRequires:	cmake(Qt6Xml)
