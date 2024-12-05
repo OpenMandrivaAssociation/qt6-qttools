@@ -6,7 +6,7 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.8.0
+Version:	6.8.1
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -275,3 +275,4 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/lib/cmake/Qt6QDocCatchPrivate
 %{_qtdir}/mkspecs/modules/qt_lib_qdoccatch_private.pri
 %{_qtdir}/modules/QDocCatchPrivate.json
+%{_qtdir}/sbom/*
