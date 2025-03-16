@@ -1,4 +1,4 @@
-#define beta rc2
+%define beta rc
 # QtDeclarative has a BR on linguist tools, but
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
@@ -6,7 +6,7 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.8.2
+Version:	6.9.0
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -220,7 +220,7 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
-%{_qtdir}/plugins/help
+#{_qtdir}/plugins/help
 %dir %{_qtdir}/phrasebooks
 %lang(da) %{_qtdir}/phrasebooks/danish.qph
 %lang(nl) %{_qtdir}/phrasebooks/dutch.qph
