@@ -6,8 +6,8 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.9.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Version:	6.9.1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -39,9 +39,11 @@ BuildRequires:	cmake(Qt6QmlLSPrivate)
 BuildRequires:	cmake(Qt6JsonRpcPrivate)
 BuildRequires:	cmake(Qt6QmlDomPrivate)
 BuildRequires:	cmake(Qt6QmlToolingSettingsPrivate)
+BuildRequires:	cmake(Qt6QmlLSPrivate)
 BuildRequires:	cmake(Qt6QmlCore)
 BuildRequires:	cmake(Qt6QmlCompiler)
 BuildRequires:	cmake(Qt6Help)
+BuildRequires:	git-core
 
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	%mklibname zstd -s -d
@@ -220,7 +222,7 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
-#{_qtdir}/plugins/help
+%{_qtdir}/plugins/help
 %dir %{_qtdir}/phrasebooks
 %lang(da) %{_qtdir}/phrasebooks/danish.qph
 %lang(nl) %{_qtdir}/phrasebooks/dutch.qph
