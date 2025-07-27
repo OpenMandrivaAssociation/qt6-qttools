@@ -1,0 +1,123 @@
+diff -up qttools-everywhere-src-6.9.1/.cmake.conf.omv~ qttools-everywhere-src-6.9.1/.cmake.conf
+--- qttools-everywhere-src-6.9.1/.cmake.conf.omv~	2025-07-27 17:55:14.048773213 +0200
++++ qttools-everywhere-src-6.9.1/.cmake.conf	2025-07-27 17:55:23.748590945 +0200
+@@ -3,7 +3,7 @@ set(QT_REPO_MODULE_PRERELEASE_VERSION_SE
+ set(QT_EXTRA_INTERNAL_TARGET_DEFINES "QT_NO_AS_CONST=1")
+ set(QDOC_MINIMUM_CLANG_VERSION "17")
+ set(QDOC_SUPPORTED_CLANG_VERSIONS
+-    "20.1" "19.1" "18.1" "17.0"
++    "21.1" "20.1" "19.1" "18.1" "17.0"
+ )
+ list(APPEND QT_EXTRA_INTERNAL_TARGET_DEFINES "QT_NO_FOREACH=1")
+ list(APPEND QT_EXTRA_INTERNAL_TARGET_DEFINES "QT_NO_CONTEXTLESS_CONNECT=1")
+diff -up qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp.omv~ qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp
+--- qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp.omv~	2025-07-27 18:25:57.581097585 +0200
++++ qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp	2025-07-27 18:26:18.038766291 +0200
+@@ -735,7 +735,11 @@ void LupdateVisitor::processPreprocessor
+             continue;
+ 
+         auto sourceFile = sourceMgr.getFileManager()
++#if (LUPDATE_CLANG_VERSION >= LUPDATE_CLANG_VERSION_CHECK(21,0,0))
++            .getFileRef(fileNameRealPath);
++#else
+             .getFile(fileNameRealPath);
++#endif
+         auto sourceLocation = sourceMgr.translateFileLineCol(sourceFile.get(), 1, 1);
+         const clang::FileID fileId = sourceMgr.getDecomposedLoc(sourceLocation).first;
+         processIsolatedComments(fileId);
+diff -up qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h.omv~ qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h
+--- qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h.omv~	2025-07-27 17:59:18.431372663 +0200
++++ qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h	2025-07-27 18:01:11.238674579 +0200
+@@ -151,7 +151,11 @@ struct TranslationRelatedStore
+     {
+         if (sourceLocation.isInvalid()) {
+             auto sourceFile = sourceManager.getFileManager()
++#if (LUPDATE_CLANG_VERSION >= LUPDATE_CLANG_VERSION_CHECK(21,0,0))
++                .getFileRef(lupdateLocationFile.toStdString());
++#else
+                 .getFile(lupdateLocationFile.toStdString());
++#endif
+ #if (LUPDATE_CLANG_VERSION >= LUPDATE_CLANG_VERSION_CHECK(10,0,0))
+             sourceLocation = sourceManager.translateFileLineCol(sourceFile.get(),
+                 lupdateLocationLine, locationCol);
+diff -up qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h.omv~ qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h
+--- qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h.omv~	2025-07-27 18:03:15.804107106 +0200
++++ qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h	2025-07-27 18:46:53.730300412 +0200
+@@ -25,6 +25,7 @@ QT_WARNING_DISABLE_MSVC(4267)
+ #include "clang/AST/DeclarationName.h"
+ #include "clang/AST/GlobalDecl.h"
+ #include "clang/AST/Mangle.h"
++#include "clang/Basic/Version.h"
+ 
+ QT_WARNING_POP
+ 
+@@ -160,9 +161,15 @@ static inline const Type *getFullyQualif
+     // If a fully qualified arg is different from the unqualified arg,
+     // allocate new type in the AST.
+     if (MightHaveChanged) {
++#if CLANG_VERSION_MAJOR >= 21
++      QualType QT = Ctx.getTemplateSpecializationType(
++          TST->getTemplateName(), FQArgs, /*CanonicalArgs=*/std::nullopt,
++          TST->getCanonicalTypeInternal());
++#else
+       QualType QT = Ctx.getTemplateSpecializationType(
+           TST->getTemplateName(), FQArgs,
+           TST->getCanonicalTypeInternal());
++#endif
+       // getTemplateSpecializationType returns a fully qualified
+       // version of the specialization itself, so no need to qualify
+       // it.
+@@ -192,9 +199,15 @@ static inline const Type *getFullyQualif
+       // allocate new type in the AST.
+       if (MightHaveChanged) {
+         TemplateName TN(TSTDecl->getSpecializedTemplate());
++#if CLANG_VERSION_MAJOR >= 21
++        QualType QT = Ctx.getTemplateSpecializationType(
++            TN, FQArgs, /*CanonicalArgs=*/std::nullopt,
++            TSTRecord->getCanonicalTypeInternal());
++#else
+         QualType QT = Ctx.getTemplateSpecializationType(
+             TN, FQArgs,
+             TSTRecord->getCanonicalTypeInternal());
++#endif
+         // getTemplateSpecializationType returns a fully qualified
+         // version of the specialization itself, so no need to qualify
+         // it.
+@@ -257,7 +270,10 @@ static inline NestedNameSpecifier *getFu
+           Ctx, Scope->getPrefix(), WithGlobalNsPrefix);
+     case NestedNameSpecifier::Super:
+     case NestedNameSpecifier::TypeSpec:
+-    case NestedNameSpecifier::TypeSpecWithTemplate: {
++#if CLANG_VERSION_MAJOR < 21
++    case NestedNameSpecifier::TypeSpecWithTemplate:
++#endif
++    {
+       const Type *Type = Scope->getAsType();
+       // Find decl context.
+       const TagDecl *TD = nullptr;
+@@ -369,7 +385,10 @@ inline NestedNameSpecifier *createNested
+ 
+   return NestedNameSpecifier::Create(
+       Ctx, createOuterNNS(Ctx, TD, FullyQualify, WithGlobalNsPrefix),
+-      false /*No TemplateKeyword*/, TypePtr);
++#if CLANG_VERSION_MAJOR < 21
++      false /*No TemplateKeyword*/,
++#endif
++      TypePtr);
+ }
+ 
+ /// Return the fully qualified type, including fully-qualified
+@@ -393,9 +412,13 @@ inline QualType getFullyQualifiedType(Qu
+     Qualifiers Quals = QT.getQualifiers();
+     // Fully qualify the pointee and class types.
+     QT = getFullyQualifiedType(QT->getPointeeType(), Ctx, WithGlobalNsPrefix);
++#if CLANG_VERSION_MAJOR >= 21
++    QT = Ctx.getMemberPointerType(QT, MPT->getQualifier(), MPT->getMostRecentCXXRecordDecl());
++#else
+     QualType Class = getFullyQualifiedType(QualType(MPT->getClass(), 0), Ctx,
+                                            WithGlobalNsPrefix);
+     QT = Ctx.getMemberPointerType(QT, Class.getTypePtr());
++#endif
+     // Add back the qualifiers.
+     QT = Ctx.getQualifiedType(QT, Quals);
+     return QT;
