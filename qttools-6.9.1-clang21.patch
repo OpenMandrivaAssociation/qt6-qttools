@@ -10,36 +10,6 @@ diff -up qttools-everywhere-src-6.9.1/.cmake.conf.omv~ qttools-everywhere-src-6.
  )
  list(APPEND QT_EXTRA_INTERNAL_TARGET_DEFINES "QT_NO_FOREACH=1")
  list(APPEND QT_EXTRA_INTERNAL_TARGET_DEFINES "QT_NO_CONTEXTLESS_CONNECT=1")
-diff -up qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp.omv~ qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp
---- qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp.omv~	2025-07-27 18:25:57.581097585 +0200
-+++ qttools-everywhere-src-6.9.1/src/linguist/lupdate/clangtoolastreader.cpp	2025-07-27 18:26:18.038766291 +0200
-@@ -735,7 +735,11 @@ void LupdateVisitor::processPreprocessor
-             continue;
- 
-         auto sourceFile = sourceMgr.getFileManager()
-+#if (LUPDATE_CLANG_VERSION >= LUPDATE_CLANG_VERSION_CHECK(21,0,0))
-+            .getFileRef(fileNameRealPath);
-+#else
-             .getFile(fileNameRealPath);
-+#endif
-         auto sourceLocation = sourceMgr.translateFileLineCol(sourceFile.get(), 1, 1);
-         const clang::FileID fileId = sourceMgr.getDecomposedLoc(sourceLocation).first;
-         processIsolatedComments(fileId);
-diff -up qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h.omv~ qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h
---- qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h.omv~	2025-07-27 17:59:18.431372663 +0200
-+++ qttools-everywhere-src-6.9.1/src/linguist/lupdate/cpp_clang.h	2025-07-27 18:01:11.238674579 +0200
-@@ -151,7 +151,11 @@ struct TranslationRelatedStore
-     {
-         if (sourceLocation.isInvalid()) {
-             auto sourceFile = sourceManager.getFileManager()
-+#if (LUPDATE_CLANG_VERSION >= LUPDATE_CLANG_VERSION_CHECK(21,0,0))
-+                .getFileRef(lupdateLocationFile.toStdString());
-+#else
-                 .getFile(lupdateLocationFile.toStdString());
-+#endif
- #if (LUPDATE_CLANG_VERSION >= LUPDATE_CLANG_VERSION_CHECK(10,0,0))
-             sourceLocation = sourceManager.translateFileLineCol(sourceFile.get(),
-                 lupdateLocationLine, locationCol);
 diff -up qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h.omv~ qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h
 --- qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h.omv~	2025-07-27 18:03:15.804107106 +0200
 +++ qttools-everywhere-src-6.9.1/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h	2025-07-27 18:46:53.730300412 +0200
