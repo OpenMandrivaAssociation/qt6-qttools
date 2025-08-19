@@ -55,6 +55,7 @@ BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	cmake(Qt6QmlModels)
 BuildRequires:	cmake(Qt6QmlTools)
 BuildRequires:	cmake(Qt6Quick)
+BuildRequires:	cmake(Qt6QuickLayouts)
 BuildRequires:	cmake(Qt6QuickWidgets)
 BuildRequires:	qt6-qtdeclarative
 %endif
