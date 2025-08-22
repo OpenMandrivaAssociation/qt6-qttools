@@ -1,4 +1,4 @@
-%define beta beta2
+%define beta beta3
 # QtDeclarative has a BR on linguist tools, but
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
