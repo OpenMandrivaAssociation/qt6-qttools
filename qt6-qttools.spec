@@ -1,4 +1,4 @@
-%define beta beta3
+%define beta rc
 # QtDeclarative has a BR on linguist tools, but
 # QtTools has a BR on QtDeclarative...
 # Allow a bootstrap build without Declarative bits
@@ -183,7 +183,6 @@ rm -f %{buildroot}/%{_qtdir}/bin/assistant
 rm -f %{buildroot}/%{_qtdir}/bin/designer
 rm -f %{buildroot}/%{_qtdir}/bin/linguist
 rm -f %{buildroot}/%{_qtdir}/bin/qdbusviewer
-
 
 %files assistant
 %{_bindir}/assistant
