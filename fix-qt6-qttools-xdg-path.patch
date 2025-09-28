@@ -1,0 +1,147 @@
+diff -up qt6-qttools-6.10.0/src/assistant/assistant/CMakeLists.txt.omv qt6-qttools-6.10.0/src/assistant/assistant/CMakeLists.txt
+--- qt6-qttools-6.10.0/src/assistant/assistant/CMakeLists.txt.omv	2025-09-20 11:30:48.211968540 -0400
++++ qt6-qttools-6.10.0/src/assistant/assistant/CMakeLists.txt	2025-09-20 11:44:58.999957100 -0400
+@@ -165,22 +165,24 @@ qt_internal_extend_target(assistant COND
+ 
+ if(QT_INSTALL_XDG_DESKTOP_ENTRIES)
+     if(UNIX AND NOT APPLE)
+-        qt_path_join(xdg_install_dir ${QT_INSTALL_DIR} ${CMAKE_INSTALL_DATAROOTDIR})
+-
+         qt_install(FILES assistant.desktop
+-            DESTINATION "${xdg_install_dir}/applications"
++            DESTINATION "${xdg_data_install_dir}/applications"
+         )
+         qt_install(FILES assistant.metainfo.xml
+             RENAME io.qt.Assistant.metainfo.xml
+-            DESTINATION "${xdg_install_dir}/metainfo"
++            DESTINATION "${xdg_data_install_dir}/metainfo"
+         )
+         qt_install(FILES images/assistant-128.png
+             RENAME assistant.png
+-            DESTINATION "${xdg_install_dir}/icons/hicolor/128x128/apps"
++            DESTINATION "${xdg_data_install_dir}/icons/hicolor/128x128/apps"
+         )
+     endif()
+ endif()
+ 
++if(UNIX AND NOT APPLE)
++    qt_install(TARGETS assistant RUNTIME DESTINATION ${xdg_bin_install_dir})
++endif()
++
+ if(APPLE)
+     set_target_properties(assistant PROPERTIES
+         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info_mac.plist"
+diff -up qt6-qttools-6.10.0/src/CMakeLists.txt.omv qt6-qttools-6.10.0/src/CMakeLists.txt
+--- qt6-qttools-6.10.0/src/CMakeLists.txt.omv	2025-09-20 11:24:04.990514381 -0400
++++ qt6-qttools-6.10.0/src/CMakeLists.txt	2025-09-20 11:49:39.098528586 -0400
+@@ -1,6 +1,12 @@
+ # Copyright (C) 2022 The Qt Company Ltd.
+ # SPDX-License-Identifier: BSD-3-Clause
+ 
++if(UNIX AND NOT APPLE)
++   # set XDG install paths
++   set(xdg_data_install_dir /usr/share)
++   set(xdg_bin_install_dir /usr/bin)
++endif()
++
+ # Need to stop building these apps by default because they would fail
+ # in device_and_simulator and webassembly builds.
+ if(UIKIT OR WASM)
+diff -up qt6-qttools-6.10.0/src/designer/src/designer/CMakeLists.txt.omv qt6-qttools-6.10.0/src/designer/src/designer/CMakeLists.txt
+--- qt6-qttools-6.10.0/src/designer/src/designer/CMakeLists.txt.omv	2025-09-20 11:38:49.560874290 -0400
++++ qt6-qttools-6.10.0/src/designer/src/designer/CMakeLists.txt	2025-09-20 11:45:15.160474494 -0400
+@@ -117,21 +117,23 @@ endif()
+ 
+ if(QT_INSTALL_XDG_DESKTOP_ENTRIES)
+     if(UNIX AND NOT APPLE)
+-        qt_path_join(xdg_install_dir ${QT_INSTALL_DIR} ${CMAKE_INSTALL_DATAROOTDIR})
+-
+         qt_install(FILES designer.desktop
+-            DESTINATION "${xdg_install_dir}/applications"
++            DESTINATION "${xdg_data_install_dir}/applications"
+         )
+         qt_install(FILES designer.metainfo.xml
+             RENAME io.qt.Designer.metainfo.xml
+-            DESTINATION "${xdg_install_dir}/metainfo"
++            DESTINATION "${xdg_data_install_dir}/metainfo"
+         )
+         qt_install(FILES images/designer.png
+-            DESTINATION "${xdg_install_dir}/icons/hicolor/128x128/apps"
++            DESTINATION "${xdg_data_install_dir}/icons/hicolor/128x128/apps"
+         )
+     endif()
+ endif()
+ 
++if(UNIX AND NOT APPLE)
++    qt_install(TARGETS designer RUNTIME DESTINATION ${xdg_bin_install_dir})
++endif()
++
+ if(APPLE)
+     set_target_properties(designer PROPERTIES
+         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info_mac.plist"
+diff -up qt6-qttools-6.10.0/src/linguist/linguist/CMakeLists.txt.omv qt6-qttools-6.10.0/src/linguist/linguist/CMakeLists.txt
+--- qt6-qttools-6.10.0/src/linguist/linguist/CMakeLists.txt.omv	2025-09-20 11:45:57.813437111 -0400
++++ qt6-qttools-6.10.0/src/linguist/linguist/CMakeLists.txt	2025-09-20 11:47:07.810482365 -0400
+@@ -273,22 +273,24 @@ endif()
+ 
+ if(QT_INSTALL_XDG_DESKTOP_ENTRIES)
+     if(UNIX AND NOT APPLE)
+-        qt_path_join(xdg_install_dir ${QT_INSTALL_DIR} ${CMAKE_INSTALL_DATAROOTDIR})
+-
+         qt_install(FILES linguist.desktop
+-            DESTINATION "${xdg_install_dir}/applications"
++            DESTINATION "${xdg_data_install_dir}/applications"
+         )
+         qt_install(FILES linguist.metainfo.xml
+             RENAME io.qt.Linguist.metainfo.xml
+-            DESTINATION "${xdg_install_dir}/metainfo"
++            DESTINATION "${xdg_data_install_dir}/metainfo"
+         )
+         qt_install(FILES images/icons/linguist-128-32.png
+             RENAME linguist.png
+-            DESTINATION "${xdg_install_dir}/icons/hicolor/128x128/apps"
++            DESTINATION "${xdg_data_install_dir}/icons/hicolor/128x128/apps"
+         )
+     endif()
+ endif()
+ 
++if(UNIX AND NOT APPLE)
++    qt_install(TARGETS linguist RUNTIME DESTINATION ${xdg_bin_install_dir})
++endif()
++
+ if(APPLE)
+     set_target_properties(linguist PROPERTIES
+         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info_mac.plist"
+diff -up qt6-qttools-6.10.0/src/qdbus/qdbusviewer/CMakeLists.txt.omv qt6-qttools-6.10.0/src/qdbus/qdbusviewer/CMakeLists.txt
+--- qt6-qttools-6.10.0/src/qdbus/qdbusviewer/CMakeLists.txt.omv	2025-09-20 11:47:32.313050114 -0400
++++ qt6-qttools-6.10.0/src/qdbus/qdbusviewer/CMakeLists.txt	2025-09-20 11:48:07.684971576 -0400
+@@ -40,22 +40,24 @@ qt_internal_add_resource(qdbusviewer "qd
+ 
+ if(QT_INSTALL_XDG_DESKTOP_ENTRIES)
+     if(UNIX AND NOT APPLE)
+-        qt_path_join(xdg_install_dir ${QT_INSTALL_DIR} ${CMAKE_INSTALL_DATAROOTDIR})
+-
+         qt_install(FILES qdbusviewer.desktop
+-            DESTINATION "${xdg_install_dir}/applications"
++            DESTINATION "${xdg_data_install_dir}/applications"
+         )
+         qt_install(FILES qdbusviewer.metainfo.xml
+             RENAME io.qt.qdbusviewer.metainfo.xml
+-            DESTINATION "${xdg_install_dir}/metainfo"
++            DESTINATION "${xdg_data_install_dir}/metainfo"
+         )
+         qt_install(FILES images/qdbusviewer-128.png
+             RENAME qdbusviewer.png
+-            DESTINATION "${xdg_install_dir}/icons/hicolor/128x128/apps"
++            DESTINATION "${xdg_data_install_dir}/icons/hicolor/128x128/apps"
+         )
+     endif()
+ endif()
+ 
++if(UNIX AND NOT APPLE)
++    qt_install(TARGETS qdbusviewer RUNTIME DESTINATION ${xdg_bin_install_dir})
++endif()
++
+ if(APPLE)
+     set_target_properties(qdbusviewer PROPERTIES
+         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info_mac.plist"

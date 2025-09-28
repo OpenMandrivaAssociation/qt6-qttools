@@ -7,19 +7,23 @@
 
 Name:		qt6-qttools
 Version:	6.10.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
 %else
-Source:		https://download.qt.io/%{?beta:development}%{!?beta:official}_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}%{?beta:-%{beta}}/submodules/qttools-everywhere-src-%{version}%{?beta:-%{beta}}.tar.xz
+Source:		https://download.qt-project.org/%{?beta:development}%{!?beta:official}_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}%{?beta:-%{beta}}/submodules/qttools-everywhere-src-%{version}%{?beta:-%{beta}}.tar.xz
 %endif
-Patch0:		qttools-6.0.0-clang-linkage.patch
-Patch1:		qttools-6.7.0-zstd-detection.patch
 Group:		System/Libraries
 Summary:	Qt %{qtmajor} Tools
-BuildRequires:	cmake
-BuildRequires:	ninja
+
+BuildSystem:    cmake
+BuildOption:    -DCMAKE_INSTALL_PREFIX=%{_qtdir}
+BuildOption:  	-DQT_BUILD_EXAMPLES:BOOL=ON
+BuildOption:  	-DQT_WILL_INSTALL:BOOL=ON
+BuildOption:  	-DQT_INSTALL_XDG_DESKTOP_ENTRIES:BOOL=ON
+BuildOption:  	--log-level=STATUS
+
 BuildRequires:	llvm-bolt
 BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Concurrent)
@@ -68,6 +72,11 @@ BuildRequires:	cmake(LLVM)
 BuildRequires:	cmake(Clang)
 BuildRequires:	llvm-static-devel
 License:	LGPLv3/GPLv3/GPLv2
+
+%patchlist
+qttools-6.0.0-clang-linkage.patch
+qttools-6.7.0-zstd-detection.patch
+fix-qt6-qttools-xdg-path.patch
 
 %description
 Qt %{qtmajor} tools
@@ -167,31 +176,31 @@ Documentation generator for Qt
 
 %qt6libs Designer DesignerComponents Help UiTools
 
-%prep
-%autosetup -p1 -n qttools%{!?snapshot:-everywhere-src-%{version}%{?beta:-%{beta}}}
-%cmake -G Ninja \
-	-DCMAKE_INSTALL_PREFIX=%{_qtdir} \
-	-DQT_BUILD_EXAMPLES:BOOL=ON \
-	-DQT_WILL_INSTALL:BOOL=ON \
-	--log-level=STATUS
-
-%build
-export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
-%ninja_build -C build
-
-%install
-%ninja_install -C build
+%install -a
 %qt6_postinstall
+rm -f %{buildroot}/%{_qtdir}/bin/assistant
+rm -f %{buildroot}/%{_qtdir}/bin/designer
+rm -f %{buildroot}/%{_qtdir}/bin/linguist
+rm -f %{buildroot}/%{_qtdir}/bin/qdbusviewer
 
 %files assistant
-%{_qtdir}/bin/assistant
+%{_bindir}/assistant
+%{_datadir}/applications/assistant.desktop
+%{_datadir}/icons/hicolor/128x128/apps/assistant.png
+%{_datadir}/metainfo/io.qt.Assistant.metainfo.xml
 
 %files designer
-%{_qtdir}/bin/designer
+%{_bindir}/designer
 %{_qtdir}/plugins/designer
+%{_datadir}/applications/designer.desktop
+%{_datadir}/icons/hicolor/128x128/apps/designer.png
+%{_datadir}/metainfo/io.qt.Designer.metainfo.xml
 
 %files linguist
-%{_qtdir}/bin/linguist
+%{_bindir}/linguist
+%{_datadir}/applications/linguist.desktop
+%{_datadir}/icons/hicolor/128x128/apps/linguist.png
+%{_datadir}/metainfo/io.qt.Linguist.metainfo.xml
 
 %files linguist-tools
 %{_qtdir}/bin/lconvert
@@ -215,7 +224,10 @@ export LD_LIBRARY_PATH="$(pwd)/build/lib:${LD_LIBRARY_PATH}"
 %{_qtdir}/bin/qdbus
 
 %files dbusviewer
-%{_qtdir}/bin/qdbusviewer
+%{_bindir}/qdbusviewer
+%{_datadir}/applications/qdbusviewer.desktop
+%{_datadir}/icons/hicolor/128x128/apps/qdbusviewer.png
+%{_datadir}/metainfo/io.qt.qdbusviewer.metainfo.xml
 
 %files doc
 %{_qtdir}/bin/qdoc
