@@ -7,7 +7,7 @@
 
 Name:		qt6-qttools
 Version:	6.10.0
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -182,15 +182,23 @@ rm -f %{buildroot}/%{_qtdir}/bin/assistant
 rm -f %{buildroot}/%{_qtdir}/bin/designer
 rm -f %{buildroot}/%{_qtdir}/bin/linguist
 rm -f %{buildroot}/%{_qtdir}/bin/qdbusviewer
+# create symlinks from _bindir to qtdir for packages which look for
+# these binaries in the _qtdir/bin/ such as pyside6 and others.
+ln -s %{_bindir}/assistant %{buildroot}/%{_qtdir}/bin/assistant
+ln -s %{_bindir}/designer %{buildroot}/%{_qtdir}/bin/designer
+ln -s %{_bindir}/linguist %{buildroot}/%{_qtdir}/bin/linguist
+ln -s %{_bindir}/qdbusviewer %{buildroot}/%{_qtdir}/bin/qdbusviewer
 
 %files assistant
 %{_bindir}/assistant
+%{_qtdir}/bin/assistant
 %{_datadir}/applications/assistant.desktop
 %{_datadir}/icons/hicolor/128x128/apps/assistant.png
 %{_datadir}/metainfo/io.qt.Assistant.metainfo.xml
 
 %files designer
 %{_bindir}/designer
+%{_qtdir}/bin/designer
 %{_qtdir}/plugins/designer
 %{_datadir}/applications/designer.desktop
 %{_datadir}/icons/hicolor/128x128/apps/designer.png
@@ -198,6 +206,7 @@ rm -f %{buildroot}/%{_qtdir}/bin/qdbusviewer
 
 %files linguist
 %{_bindir}/linguist
+%{_qtdir}/bin/linguist
 %{_datadir}/applications/linguist.desktop
 %{_datadir}/icons/hicolor/128x128/apps/linguist.png
 %{_datadir}/metainfo/io.qt.Linguist.metainfo.xml
@@ -225,6 +234,7 @@ rm -f %{buildroot}/%{_qtdir}/bin/qdbusviewer
 
 %files dbusviewer
 %{_bindir}/qdbusviewer
+%{_qtdir}/bin/qdbusviewer
 %{_datadir}/applications/qdbusviewer.desktop
 %{_datadir}/icons/hicolor/128x128/apps/qdbusviewer.png
 %{_datadir}/metainfo/io.qt.qdbusviewer.metainfo.xml
