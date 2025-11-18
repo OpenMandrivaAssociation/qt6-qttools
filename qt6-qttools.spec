@@ -178,16 +178,21 @@ Documentation generator for Qt
 
 %install -a
 %qt6_postinstall
-rm -f %{buildroot}/%{_qtdir}/bin/assistant
-rm -f %{buildroot}/%{_qtdir}/bin/designer
-rm -f %{buildroot}/%{_qtdir}/bin/linguist
-rm -f %{buildroot}/%{_qtdir}/bin/qdbusviewer
-# create symlinks from _bindir to qtdir for packages which look for
-# these binaries in the _qtdir/bin/ such as pyside6 and others.
-ln -s %{_bindir}/assistant %{buildroot}/%{_qtdir}/bin/assistant
-ln -s %{_bindir}/designer %{buildroot}/%{_qtdir}/bin/designer
-ln -s %{_bindir}/linguist %{buildroot}/%{_qtdir}/bin/linguist
-ln -s %{_bindir}/qdbusviewer %{buildroot}/%{_qtdir}/bin/qdbusviewer
+
+# Replace duplicates with symlinks
+for i in %{buildroot}/%{_bindir}/*; do
+	bn="$(basename $i)"
+	[ -e %{buildroot}%{_qtdir}/bin/$bn ] || continue
+	rm -f %{buildroot}%{_qtdir}/bin/$bn
+	ln -s %{_bindir}/$bn %{buildroot}%{_qtdir}/bin/
+done
+
+# Make sure important tools are in PATH
+for i in %{buildroot}%{_qtdir}/bin/*; do
+	bn="$(basename $i)"
+	[ -e %{buildroot}%{_bindir}/$bn ] && continue
+	ln -s %{_qtdir}/bin/$bn %{buildroot}%{_bindir}/
+done
 
 %files assistant
 %{_bindir}/assistant
@@ -212,6 +217,9 @@ ln -s %{_bindir}/qdbusviewer %{buildroot}/%{_qtdir}/bin/qdbusviewer
 %{_datadir}/metainfo/io.qt.Linguist.metainfo.xml
 
 %files linguist-tools
+%{_bindir}/lconvert
+%{_bindir}/lrelease
+%{_bindir}/lupdate
 %{_qtdir}/bin/lconvert
 %{_qtdir}/bin/lrelease
 %{_qtdir}/bin/lupdate
@@ -230,6 +238,7 @@ ln -s %{_bindir}/qdbusviewer %{buildroot}/%{_qtdir}/bin/qdbusviewer
 %{_qtdir}/lib/cmake/Qt6Linguist
 
 %files dbus
+%{_bindir}/qdbus
 %{_qtdir}/bin/qdbus
 
 %files dbusviewer
@@ -240,9 +249,14 @@ ln -s %{_bindir}/qdbusviewer %{buildroot}/%{_qtdir}/bin/qdbusviewer
 %{_datadir}/metainfo/io.qt.qdbusviewer.metainfo.xml
 
 %files doc
+%{_bindir}/qdoc
 %{_qtdir}/bin/qdoc
 
 %files
+%{_bindir}/pixeltool
+%{_bindir}/qtdiag
+%{_bindir}/qtdiag6
+%{_bindir}/qtplugininfo
 %{_qtdir}/bin/pixeltool
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
@@ -266,6 +280,7 @@ ln -s %{_bindir}/qdbusviewer %{buildroot}/%{_qtdir}/bin/qdbusviewer
 %if ! %{with bootstrap}
 %files distancefieldgenerator
 %{_qtdir}/bin/qdistancefieldgenerator
+%{_bindir}/qdistancefieldgenerator
 %endif
 
 %files examples
