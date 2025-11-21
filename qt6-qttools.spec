@@ -48,6 +48,7 @@ BuildRequires:	cmake(Qt6QmlCompilerPrivate)
 BuildRequires:	cmake(Qt6QmlFormatPrivate)
 BuildRequires:	cmake(Qt6QmlCore)
 BuildRequires:	cmake(Qt6QmlCompiler)
+BuildRequires:	cmake(Qt6QmlMeta)
 BuildRequires:	cmake(Qt6Help)
 BuildRequires:	git-core
 
