@@ -1,0 +1,36 @@
+diff -up qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake.omv~ qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake
+--- qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake.omv~	2026-03-01 15:42:53.456028583 +0100
++++ qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake	2026-03-01 15:42:59.604102968 +0100
+@@ -8,6 +8,6 @@ set(QDOC_MINIMUM_CLANG_VERSION "17")
+ 
+ # List of explicitly supported Clang versions for QDoc
+ set(QDOC_SUPPORTED_CLANG_VERSIONS
+-    "21.1" "20.1" "19.1" "18.1" "17.0.6"
++    "22.1" "21.1" "20.1" "19.1" "18.1" "17.0.6"
+ )
+ 
+diff -up qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h.omv~ qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h
+diff -up qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~ qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
+--- qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~	2026-03-01 16:16:59.829637664 +0100
++++ qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp	2026-03-01 16:21:23.218424760 +0100
+@@ -26,6 +26,8 @@
+ #include <QtCore/qtextstream.h>
+ #include <QtCore/qvarlengtharray.h>
+ 
++#undef emit // Clang 22.1+ defines a BoundTypeDiagnoser::emit method
++
+ #include <clang-c/Index.h>
+ 
+ #include <clang/AST/Decl.h>
+@@ -39,7 +41,11 @@
+ #include <clang/Lex/Lexer.h>
+ #include <llvm/Support/Casting.h>
+ 
++#if LIBCLANG_VERSION_MAJOR >= 22
++#include <clang/AST/QualTypeNames.h>
++#else
+ #include "clang/AST/QualTypeNames.h"
++#endif
+ #include "template_declaration.h"
+ 
+ #include <cstdio>

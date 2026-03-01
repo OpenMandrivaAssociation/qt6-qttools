@@ -7,7 +7,7 @@
 
 Name:		qt6-qttools
 Version:	6.10.2
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -78,6 +78,7 @@ License:	LGPLv3/GPLv3/GPLv2
 qttools-6.0.0-clang-linkage.patch
 qttools-6.7.0-zstd-detection.patch
 fix-qt6-qttools-xdg-path.patch
+qttools-6.10.2-llvm-22.patch
 
 %description
 Qt %{qtmajor} tools
