@@ -50,6 +50,8 @@ BuildRequires:	cmake(Qt6QmlCore)
 BuildRequires:	cmake(Qt6QmlCompiler)
 BuildRequires:	cmake(Qt6QmlMeta)
 BuildRequires:	cmake(Qt6Help)
+# kmap2qmap
+BuildRequires:	cmake(Qt6InputSupportPrivate)
 BuildRequires:	git-core
 
 BuildRequires:	pkgconfig(libzstd)
