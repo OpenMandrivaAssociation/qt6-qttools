@@ -1,19 +1,19 @@
-diff -up qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake.omv~ qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake
---- qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake.omv~	2026-03-01 15:42:53.456028583 +0100
-+++ qt6-qttools-6.10.2/src/qdoc/cmake/QDocConfiguration.cmake	2026-03-01 15:42:59.604102968 +0100
-@@ -8,6 +8,6 @@ set(QDOC_MINIMUM_CLANG_VERSION "17")
+diff -up qt6-qttools-6.11.0/src/qdoc/cmake/QDocConfiguration.cmake.4~ qt6-qttools-6.11.0/src/qdoc/cmake/QDocConfiguration.cmake
+--- qt6-qttools-6.11.0/src/qdoc/cmake/QDocConfiguration.cmake.4~	2026-03-10 06:07:41.000000000 +0100
++++ qt6-qttools-6.11.0/src/qdoc/cmake/QDocConfiguration.cmake	2026-03-31 17:18:18.834418485 +0200
+@@ -8,7 +8,7 @@ set(QDOC_MINIMUM_CLANG_VERSION "17")
  
  # List of explicitly supported Clang versions for QDoc
  set(QDOC_SUPPORTED_CLANG_VERSIONS
 -    "21.1" "20.1" "19.1" "18.1" "17.0.6"
-+    "22.1" "21.1" "20.1" "19.1" "18.1" "17.0.6"
++    "23.1" "22.1" "21.1" "20.1" "19.1" "18.1" "17.0.6"
  )
  
-diff -up qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h.omv~ qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clang/AST/QualTypeNames.h
-diff -up qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~ qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
---- qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~	2026-03-01 16:16:59.829637664 +0100
-+++ qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp	2026-03-01 16:21:23.218424760 +0100
-@@ -26,6 +26,8 @@
+ # Check for QDoc coverage dependencies
+diff -up qt6-qttools-6.11.0/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.4~ qt6-qttools-6.11.0/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
+--- qt6-qttools-6.11.0/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.4~	2026-03-10 06:07:41.000000000 +0100
++++ qt6-qttools-6.11.0/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp	2026-03-31 17:17:43.259453302 +0200
+@@ -29,6 +29,8 @@
  #include <QtCore/qtextstream.h>
  #include <QtCore/qvarlengtharray.h>
  
@@ -22,7 +22,7 @@ diff -up qt6-qttools-6.10.2/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp.omv~ qt6-
  #include <clang-c/Index.h>
  
  #include <clang/AST/Decl.h>
-@@ -39,7 +41,11 @@
+@@ -42,7 +44,11 @@
  #include <clang/Lex/Lexer.h>
  #include <llvm/Support/Casting.h>
  

@@ -6,8 +6,8 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.10.2
-Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}2
+Version:	6.11.0
+Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
 Source:		qttools-%{?snapshot:%{snapshot}}%{!?snapshot:%{version}}.tar.zst
@@ -196,6 +196,9 @@ for i in %{buildroot}%{_qtdir}/bin/*; do
 	ln -s %{_qtdir}/bin/$bn %{buildroot}%{_bindir}/
 done
 
+# Probably installed accidentally
+rm %{buildroot}/usr/lib64/qt6/lib/objects-RelWithDebInfo/QMakeParserCumulative_resources_1/.qt/rcc/qrc_proparser_init.cpp.o
+
 %files assistant
 %{_bindir}/assistant
 %{_qtdir}/bin/assistant
@@ -222,12 +225,19 @@ done
 %{_bindir}/lconvert
 %{_bindir}/lrelease
 %{_bindir}/lupdate
+%{_bindir}/kmap2qmap
+%{_bindir}/lcheck
+%{_bindir}/lrelease-pro
+%{_bindir}/ltext2id
+%{_bindir}/lupdate-pro
 %{_qtdir}/bin/lconvert
 %{_qtdir}/bin/lrelease
 %{_qtdir}/bin/lupdate
-%{_qtdir}/libexec/lprodump
-%{_qtdir}/libexec/lrelease-pro
-%{_qtdir}/libexec/lupdate-pro
+%{_qtdir}/bin/kmap2qmap
+%{_qtdir}/bin/lcheck
+%{_qtdir}/bin/lrelease-pro
+%{_qtdir}/bin/ltext2id
+%{_qtdir}/bin/lupdate-pro
 # This may be mixing -devel files and non-devel
 # files in a single package, but given lconvert,
 # lrelease and lupdate are virtually never used
