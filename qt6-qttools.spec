@@ -6,7 +6,7 @@
 %bcond_with bootstrap
 
 Name:		qt6-qttools
-Version:	6.11.0
+Version:	6.11.1
 Release:	%{?beta:0.%{beta}.}%{?snapshot:0.%{snapshot}.}1
 %if 0%{?snapshot:1}
 # "git archive"-d from "dev" branch of git://code.qt.io/qt/qtbase.git
@@ -173,6 +173,11 @@ Requires:	%{name}-linguist-tools = %{EVRD}
 # qhelpgenerator's qch files are, in fact, sqlite
 # databases - written to by QSql
 Requires:	qt6-qtbase-sql-sqlite
+Provides:	cmake(Qt6QDocCatchConversionsPrivatePrivate) = %{EVRD}
+Provides:	cmake(Qt6QDocCatchGeneratorsPrivatePrivate) = %{EVRD}
+Provides:	cmake(Qt6QDocCatchPrivatePrivate) = %{EVRD}
+Provides:	cmake(Qt6ToolsPrivate) = %{EVRD}
+Provides:	cmake(Qt6LinguistPrivate) = %{EVRD}
 
 %description devel
 Development files for working with Qt Tools
@@ -184,6 +189,12 @@ Provides:	qdoc = %{EVRD}
 
 %description doc
 Documentation generator for Qt
+
+%define extra_reqprov_DesignerComponents \
+Provides: cmake(Qt6DesignerComponentsPrivatePrivate) = %{EVRD}
+
+%define extra_reqprov_UiTools \
+Provides: cmake(Qt6UiPluginPrivate) = %{EVRD}
 
 %qt6libs Designer DesignerComponents Help UiTools
 
@@ -282,7 +293,6 @@ rm %{buildroot}/usr/lib64/qt6/lib/objects-RelWithDebInfo/QMakeParserCumulative_r
 %{_qtdir}/bin/qtdiag
 %{_qtdir}/bin/qtdiag6
 %{_qtdir}/bin/qtplugininfo
-%{_qtdir}/plugins/help
 %dir %{_qtdir}/phrasebooks
 %lang(da) %{_qtdir}/phrasebooks/danish.qph
 %lang(nl) %{_qtdir}/phrasebooks/dutch.qph
