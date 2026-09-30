@@ -19,6 +19,7 @@ Summary:	Qt %{qtmajor} Tools
 
 BuildSystem:    cmake
 BuildOption:    -DCMAKE_INSTALL_PREFIX=%{_qtdir}
+BuildOption:  	-DQT_BUILD_TESTS:BOOL=OFF
 BuildOption:  	-DQT_BUILD_EXAMPLES:BOOL=ON
 BuildOption:  	-DQT_WILL_INSTALL:BOOL=ON
 BuildOption:  	-DQT_INSTALL_XDG_DESKTOP_ENTRIES:BOOL=ON
